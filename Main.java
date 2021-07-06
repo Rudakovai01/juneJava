@@ -1,84 +1,46 @@
-package HW_4;
-
-import com.sun.jdi.Value;
-
-import java.util.*;
-import java.util.stream.Collectors;
+package HW_5;
+import java.io.*;
+import java.nio.charset.StandardCharsets;
 
 public class Main {
+    public static void main (String[] args) throws Exception {
+//        ДЗ
+//        Реализовать сохранение данных в csv файл;
+//        Реализовать загрузку данных из csv файла. Файл читается целиком.
+//                Структура csv файла:
+//        Строка заголовок с набором столбцов
+//        Набор строк с целочисленными значениями
+//                * Разделитель между столбцами - символ точка с запятой (;)
+//        Пример:
+//        Value 1;Value 2;Value 3
+//        100;200;123
+//        300,400,500
+//        Для хранения данных использовать класс вида:
+//        public class AppData {
+//            private String[] header;
+//            private int[][] data;
+//            // ...
+//        }
+//        Если выполняется save(AppData data), то старые данные в файле полностью перезаписываются.
 
-
-    public static void main(String[] args) {
-// Задание 1, способ 1, через List
-        List<String> list = new ArrayList<>();
-        list.add("Moscow");
-        list.add("St-Pete");
-        list.add("New York");
-        list.add("Berlin");
-        list.add("Amsterdam");
-        list.add("Moscow");
-        list.add("Amsterdam");
-        list.add("Moscow");
-        list.add("Geneva");
-        list.add("Munic");
-        list.add("Ushuaya");
-        list.add("New Delhi");
-        System.out.println("Количество элементов в массиве = " + list.size());
-        list.stream().distinct().collect(Collectors.toList());
-        System.out.println("Количество уникальных элементов в массиве = " + list.stream().distinct().collect(Collectors.counting()));
-        System.out.println("А именно, в коллекции представлены: " + list.stream().distinct().collect(Collectors.toList()));
-        System.out.println();
-        System.out.println("Сколько раз встречаются слова?");
-        /*for (String i: list) {
-            System.out.println(i+ " : " + Collections.frequency());
-        }*/
-
-
-        //Задание 1, способ, способ 2, через SET
-        System.out.println();
-        System.out.println("Задание 1, способ, способ 2, через SET");
-        Set<String> set = new HashSet<>();
-        set.add("Moscow");
-        set.add("St-Pete");
-        set.add("New York");
-        set.add("Berlin");
-        set.add("Amsterdam");
-        set.add("Moscow");
-        set.add("Amsterdam");
-        set.add("Moscow");
-        set.add("Geneva");
-        set.add("Munic");
-        set.add("Ushuaya");
-        set.add("New Delhi");
-        System.out.println("Количество уникальных элементов в массиве = " + set.size());
-        System.out.println();
-
-
-// Задание 2
-
-        System.out.println("Задание 2");
-    PhoneDataBase phoneDataBase = new PhoneDataBase();
-    phoneDataBase.add("Rudakov", 11111111111L);
-    phoneDataBase.add("Rudakov", 22222222222L);
-    phoneDataBase.add("Ivanov", 33333333333L);
-    phoneDataBase.add("Petrov", 11111111141L);
-
-    System.out.println("Номера телефона по фамилии Рудаков - " + phoneDataBase.get("Rudakov"));
-    System.out.println("Номера телефона по фамилии Иванов - " + phoneDataBase.get("Ivanov"));
-
-        /*System.out.println();
-        for (Map.Entry<String, Long> entry: phoneMap.entrySet()) {
-            System.out.println(entry.getKey() + " - " + entry.getValue());
-        }*/
-
-
-
-
-
-
+        try (OutputStream out = new FileOutputStream("./appData.csv")){
+            out.write("Value;1Value2;Value3\n100;200;123\n300;400;500".getBytes(StandardCharsets.UTF_8));
         }
-
+        BufferedReader br = new BufferedReader(new FileReader("appData.csv"));
+          String headers = br.readLine();
+          if (headers !=null){
+            String [] colums = headers.split(";");
+            System.out.println(headers);
+        }
+        String data = br.readLine();
+        if (data !=null){
+            String[] col = data.split(";");
+            System.out.println(data);
+        }
+        String data2 = br.readLine();
+        if (data2 !=null){
+            String[] col2 = data2.split(";");
+            System.out.println(data2);
+        }
     }
-
-
-
+}
