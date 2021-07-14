@@ -1,5 +1,5 @@
-package HW_7;
+package HW_8;
 
 public interface IUserInterface {
-    void showUI();
+    void showMenu ();
 }
